@@ -23,7 +23,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Link Extractor</title>
+    <title>Python</title>
     <style media="screen">
       html {
         background: #EAE7D6;
@@ -122,7 +122,7 @@
   </head>
   <body>
     <div class="header">
-      <h1><a href="/">Link Extractor</a></h1>
+      <h1><a href="/">Python</a></h1>
     </div>
 
     <section>
@@ -178,7 +178,7 @@
     <?php endif; ?>
 
     <div class="footer">
-      <p><a href="https://github.com/ibnesayeed/linkextractor">Link Extractor</a> by <a href="https://twitter.com/ibnesayeed">@ibnesayeed</a> from
+      <p><a href="https://github.com/ibnesayeed/linkextractor">Python</a> by <a href="https://twitter.com/ibnesayeed">@ibnesayeed</a> from
         <a href="https://ws-dl.cs.odu.edu/">WS-DL, ODU</a>
       </p>
     </div>
