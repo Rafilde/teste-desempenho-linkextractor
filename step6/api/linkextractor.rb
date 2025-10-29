@@ -38,7 +38,7 @@ end
 
 def extract_links(url)
   links = []
-  doc = Nokogiri::HTML(open(url))
+  doc = Nokogiri::HTML(open(url, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
   doc.css("a").each do |link|
     text = link.text.strip.split.join(" ")
     begin
