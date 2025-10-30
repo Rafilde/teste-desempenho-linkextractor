@@ -21,15 +21,15 @@ end
 
 get "/api/*" do
   url = [params['splat'].first, request.query_string].reject(&:empty?).join("?")
-  cache_status = "HIT" # apagar depois quando for sem o cache
-  jsonlinks = redis.get(url) # Apagar depois quando for sem o cache
-  if jsonlinks.nil?  # apagar depois quando for sem o cache
-    cache_status = "MISS" # apagar depois quando for sem o cache
-    jsonlinks = JSON.pretty_generate(extract_links(url))
-    redis.set(url, jsonlinks) # apagar depois quando for sem o cache
-  end
+  # cache_status = "HIT" 
+  # jsonlinks = redis.get(url) 
+  # if jsonlinks.nil? 
+  #   cache_status = "MISS"
+  jsonlinks = JSON.pretty_generate(extract_links(url))
+  #   redis.set(url, jsonlinks) 
+  # end
 
-  cache_log.puts "#{Time.now.to_i}\t#{cache_status}\t#{url}"
+  # cache_log.puts "#{Time.now.to_i}\t#{cache_status}\t#{url}"
 
   status 200
   headers "content-type" => "application/json"

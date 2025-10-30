@@ -20,11 +20,11 @@ def api(url):
     if qs != "":
         url += "?" + qs
 
-    jsonlinks = redis_conn.get(url) # apagar depois quando for sem o cache
-    if not jsonlinks: # APaagr depois quando for sem o cache
+    jsonlinks = redis_conn.get(url) 
+    if not jsonlinks: 
         links = extract_links(url)
         jsonlinks = json.dumps(links, indent=2)
-        redis_conn.set(url, jsonlinks) # apagar depois quando for sem o cache
+        redis_conn.set(url, jsonlinks) 
 
     response = app.response_class(
         status=200,
