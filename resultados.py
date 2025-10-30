@@ -13,8 +13,6 @@ def resultados():
     # --- 1. CONFIGURAÇÃO (AGORA MAIS DIDÁTICA) ---
     pasta_planilhas = 'planilhas'
     
-    # Em vez de Regex, definimos uma lista de todos os testes
-    # que queremos ler e quais são suas propriedades.
     testes_para_ler = [
         # Python com Cache
         {'arquivo': 'python-cache-10user.csv', 'ambiente': 'Python', 'cache': 'Com Cache', 'usuarios': 10},
@@ -48,10 +46,8 @@ def resultados():
         try:
             df_temp = pd.read_csv(caminho_arquivo)
             
-            # Pega a linha "Aggregated" que tem o resumo do teste
             df_resumo = df_temp[df_temp['Name'] == 'Aggregated'].iloc[0]
             
-            # Adiciona os dados à nossa lista
             dados_compilados.append({
                 'Ambiente': teste['ambiente'],
                 'Cache': teste['cache'],
@@ -77,11 +73,9 @@ def resultados():
         print("Nenhum dado foi processado com sucesso.")
         return
 
-    # Cria o DataFrame final com todos os resultados
     df_final = pd.DataFrame(dados_compilados)
     df_final = df_final.sort_values(by=['Ambiente', 'Cache', 'Usuários'])
     
-    # Salva a planilha compilada
     arquivo_saida = 'resultados_compilados.csv'
     df_final.to_csv(arquivo_saida, index=False)
     

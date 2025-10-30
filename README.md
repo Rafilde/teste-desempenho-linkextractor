@@ -131,6 +131,7 @@ Durante a execução dos testes, a API em Ruby apresentou instabilidade.
 
 ## Análise e Visualização (Resultados)
 - Pasta Resultados
-![Demonstração falhas](./naboa/resultados/grafico_falhas_barras.png)
-![Demonstração p90](./naboa/resultados/grafico_p90_barras.png)
-![Demonstração rps](./naboa/resultados/grafico_rps_barras.png)
+
+<img src="./naboa/resultados/grafico_falhas_barras.png" alt="Demonstração falhas">
+<img src="./naboa/resultados/grafico_p90_barras.png" alt="DDemonstração p90">
+<img src="./naboa/resultados/grafico_rps_barras.png" alt="Demonstração rps">
