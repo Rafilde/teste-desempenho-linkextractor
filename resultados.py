@@ -11,7 +11,7 @@ def resultados():
     """
     
     # --- 1. CONFIGURAÇÃO (AGORA MAIS DIDÁTICA) ---
-    pasta_planilhas = 'planilhas'
+    pasta_planilhas = 'naboa\planilhas'
     
     testes_para_ler = [
         # Python com Cache
@@ -55,7 +55,7 @@ def resultados():
                 'Usuários': teste['usuarios'],
                 'Média (ms)': df_resumo['Average Response Time'],
                 'Mediana (ms)': df_resumo['Median Response Time'],
-                'p90 (ms)': df_resumo['90%'], # Percentil 90
+                'p90 (ms)': df_resumo['90%'],
                 'RPS': df_resumo['Requests/s'],
                 'Falhas': df_resumo['Failure Count']
             })
@@ -83,63 +83,72 @@ def resultados():
     print(df_final)
     print(f"\nPlanilha final salva em: '{arquivo_saida}'")
 
-    # --- 4. VISUALIZAÇÃO (GRÁFICOS) ---
-    
-    print("Gerando novos gráficos de barras...")
+    # --- 4. VISUALIZAÇÃO (GRÁFICOS - AGORA COM FACETAS) --- 
+    print("Gerando novos gráficos com facetas...")
     sns.set_theme(style="whitegrid", palette="muted")
-    
-    fig_size = (14, 8) 
-    
-    # --- Gráfico 1: Tempo de Resposta (p90) - BARRAS ---
-    plt.figure(figsize=fig_size)
-    sns.barplot(
+
+    g_p90 = sns.catplot(
         data=df_final,
         x='Cenário',
         y='p90 (ms)',
-        hue='Usuários'
+        col='Usuários',   
+        kind='bar',       
+        sharey=False,     
+        height=6,         
+        aspect=1.1     
     )
-    plt.title('Percentil 90 (p90) por Cenário e Carga', fontsize=16, pad=20)
-    plt.xlabel('Cenário de Teste', fontsize=12)
-    plt.ylabel('Tempo de Resposta p90 (ms)', fontsize=12)
-    plt.xticks(rotation=10)
-    plt.legend(title='Nº de Usuários', loc='upper left')
-    plt.tight_layout()
-    plt.savefig('grafico_p90_barras.png')
-    print("Gráfico 'grafico_p90_barras.png' salvo.")
 
-    # --- Gráfico 2: Vazão (RPS) - BARRAS ---
-    plt.figure(figsize=fig_size)
-    sns.barplot(
+    g_p90.fig.suptitle('Percentil 90 (p90) por Cenário e Carga', fontsize=16, y=1.03)
+    g_p90.set_axis_labels('Cenário de Teste', 'Tempo de Resposta p90 (ms)')
+    g_p90.set_titles("Carga: {col_name} Usuários") 
+    g_p90.set_xticklabels(rotation=10) 
+
+    plt.tight_layout()
+    g_p90.savefig('grafico_p90_facetas.png')
+    print("Gráfico 'grafico_p90_facetas.png' salvo.")
+    plt.close(g_p90.fig) 
+
+    g_rps = sns.catplot(
         data=df_final,
         x='Cenário',
         y='RPS',
-        hue='Usuários'
+        col='Usuários',
+        kind='bar',
+        sharey=False,
+        height=6,
+        aspect=1.1
     )
-    plt.title('Vazão (RPS) por Cenário e Carga', fontsize=16, pad=20)
-    plt.xlabel('Cenário de Teste', fontsize=12)
-    plt.ylabel('Requisições por Segundo (RPS)', fontsize=12)
-    plt.xticks(rotation=10)
-    plt.legend(title='Nº de Usuários', loc='upper left')
-    plt.tight_layout()
-    plt.savefig('grafico_rps_barras.png')
-    print("Gráfico 'grafico_rps_barras.png' salvo.")
+    g_rps.fig.suptitle('Vazão (RPS) por Cenário e Carga', fontsize=16, y=1.03)
+    g_rps.set_axis_labels('Cenário de Teste', 'Requisições por Segundo (RPS)')
+    g_rps.set_titles("Carga: {col_name} Usuários")
+    g_rps.set_xticklabels(rotation=10)
 
-    # --- Gráfico 3: Contagem de Falhas - BARRAS ---
-    plt.figure(figsize=fig_size)
-    sns.barplot(
+    plt.tight_layout()
+    g_rps.savefig('grafico_rps_facetas.png')
+    print("Gráfico 'grafico_rps_facetas.png' salvo.")
+    plt.close(g_rps.fig)
+
+    g_falhas = sns.catplot(
         data=df_final,
         x='Cenário',
         y='Falhas',
-        hue='Usuários'
+        col='Usuários',
+        kind='bar',
+        sharey=False,
+        height=6,
+        aspect=1.1
     )
-    plt.title('Total de Falhas por Cenário e Carga', fontsize=16, pad=20)
-    plt.xlabel('Cenário de Teste', fontsize=12)
-    plt.ylabel('Contagem de Falhas', fontsize=12)
-    plt.xticks(rotation=10)
-    plt.legend(title='Nº de Usuários', loc='upper right')
+
+    g_falhas.fig.suptitle('Total de Falhas por Cenário e Carga', fontsize=16, y=1.03)
+    g_falhas.set_axis_labels('Cenário de Teste', 'Contagem de Falhas')
+    g_falhas.set_titles("Carga: {col_name} Usuários")
+    g_falhas.set_xticklabels(rotation=10)
+
     plt.tight_layout()
-    plt.savefig('grafico_falhas_barras.png')
-    print("Gráfico 'grafico_falhas_barras.png' salvo.")
+    g_falhas.savefig('grafico_falhas_facetas.png')
+    print("Gráfico 'grafico_falhas_facetas.png' salvo.")
+    plt.close(g_falhas.fig)
+
     print("\nAnálise concluída!")
 
 if __name__ == '__main__':
